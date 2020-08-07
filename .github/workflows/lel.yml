@@ -1,0 +1,48 @@
+name: oOf dynamic again
+
+on:
+#  release:
+#    types: [published]
+#  push:
+#    branches:
+#      - master
+#    paths:
+#      - '.config'
+#  schedule:
+#    - cron: 0 8 * * 5
+  watch:
+    types: [started]
+    
+env:
+  SYSTEM_URL: http://tdrive.manofuranium.workers.dev/op8prooooo/product.img
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: Checkout
+         uses: actions/checkout@master
+
+       - name: Initializing environments
+         run: |
+            sudo -E apt-get -qq update
+            sudo -E apt-get -qq install git openjdk-8-jdk wget
+            sudo apt-get update -y
+            sudo apt-get install -y simg2img  
+            sudo apt-get install -y brotli
+            sudo apt-get install unzip
+            sudo apt-get install zip gzip tar
+       - name: System.img
+         run: |
+              sudo aria2c $SYSTEM_URL
+        
+       - name: System.img
+         run: |
+              sudo mkdir lel
+              sudo mount -ro loop product.img lel/
+              sudo zip -r op8prooneplusfolder.zip lel
+              
+       - name: upload aonly n info
+         run: |
+              curl -sL https://git.io/file-transfer | sh
+              ./transfer gof op8prooneplusfolder.zip
